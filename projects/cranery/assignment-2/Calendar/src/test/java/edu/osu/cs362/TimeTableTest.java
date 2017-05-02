@@ -20,6 +20,7 @@ public class TimeTableTest {
 			GregorianCalendar cal = new GregorianCalendar(2017,3,22);
 			GregorianCalendar cai = new GregorianCalendar(2017,3,23);
 			GregorianCalendar ca1 = new GregorianCalendar(2017,3,24);
+			GregorianCalendar end = new GregorianCalendar(2017,3,25);
 			LinkedList<Appt> apts= new LinkedList<Appt>();
 			LinkedList<CalDay> days = new LinkedList<CalDay>();
 			int startHour=13;
@@ -79,7 +80,6 @@ apts.add(appt);
 															apts.add(appt);
 										TimeTable week = new TimeTable();
 										boolean thrown = false;
-
 									  try {
 									    week.getApptRange(apts,ca1,cal);
 									  } catch (IllegalArgumentException e) {
@@ -91,5 +91,70 @@ apts.add(appt);
 										week.deleteAppt(apts,appt);
 										assertEquals(apts.size(),2);
 	 }
+	 @Test
+	  public void test02()  throws Throwable  {
+			GregorianCalendar cal = new GregorianCalendar(2017,3,22);
+			GregorianCalendar cai = new GregorianCalendar(2017,3,23);
+			GregorianCalendar ca1 = new GregorianCalendar(2017,3,24);
+			LinkedList<Appt> apts= new LinkedList<Appt>();
+			LinkedList<CalDay> days = new LinkedList<CalDay>();
+			int startHour=13;
+			int startMinute=30;
+			int startDay=22;
+			int startMonth=3;
+			int startYear=2017;
+			String title="Birthday Party";
+			String description="This is my birthday party.";
+			Appt appt = new Appt(startHour,
+							 startMinute ,
+							 startDay ,
+							 startMonth ,
+							 startYear ,
+							 title,
+							description);
+							CalDay day1 = new CalDay(cal);
+							day1.addAppt(appt);
+							days.add(day1);
 
+apts.add(appt);
+							startHour=7;
+							startMinute=00;
+							startDay=23;
+							startMonth=3;
+							startYear=2017;
+							title="Dentist";
+							description="Teeth cleaning.";
+							appt = new Appt(startHour,
+											 startMinute ,
+											 startDay ,
+											 startMonth ,
+											 startYear ,
+											 title,
+											description);
+											CalDay day2 = new CalDay(cai);
+											day1.addAppt(appt);
+											days.add(day2);
+											apts.add(appt);
+											startHour=20;
+											startMinute=00;
+											startDay=24;
+											startMonth=3;
+											startYear=2017;
+											title="Dinner date";
+											description="meet at orupa.";
+											 appt = new Appt(startHour,
+															 startMinute ,
+															 startDay ,
+															 startMonth ,
+															 startYear ,
+															 title,
+															description);
+															CalDay day3 = new CalDay(ca1);
+															day1.addAppt(appt);
+															days.add(day3);
+															apts.add(appt);
+										TimeTable week = new TimeTable();
+										assertEquals(week.getApptRange(apts,cal,ca1),days);
+
+	 }
 }
